@@ -471,6 +471,21 @@ def GarageSiri():
 		return 'We have a problem with your Siri shortcut entries' 
 	else:
 		return 'We have a problem'
+@app.route('/Siri/Garage/<string:name>/Toggle', methods=['POST'])
+def GarageToggle(name):
+	ps = request.form['ps']
+	if ps == SIRI_PASSWORD:
+		logfile = open("static/log.txt","a")
+		logfile.write(datetime.now().strftime("%Y/%m/%d -- %H:%M:%S  -- " + request.environ['REMOTE_ADDR'] + " -- Garage Door Operated via Siri  \n"))
+		logfile.close()
+  
+		GPIO.output(7, GPIO.LOW)
+		time.sleep(1)
+		GPIO.output(7, GPIO.HIGH)
+		return "Toggling " + name
+	else:
+		return "wrong password"    
+
 
 @app.route('/stylesheet.css')
 def stylesheet():
