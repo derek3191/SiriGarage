@@ -475,9 +475,6 @@ def GarageSiri():
 def GarageToggle(name):
 	ps = request.form['ps']
 	if ps == SIRI_PASSWORD:
-		logfile = open("static/log.txt","a")
-		logfile.write(datetime.now().strftime("%Y/%m/%d -- %H:%M:%S  -- " + request.environ['REMOTE_ADDR'] + " -- Garage Door Operated via Siri  \n"))
-		logfile.close()
   
 		GPIO.output(7, GPIO.LOW)
 		time.sleep(1)
